@@ -17,7 +17,7 @@ namespace Ap1_P1_erick.Models
         [Required(ErrorMessage = "este campo es obligatorio")]
         public decimal ? ganacia { get; set; }
         [Required(ErrorMessage = "este campo es obligatorio")]
-        public decimal? precio { get; set; }/// ganacia , precio
+        public decimal? precio { get; set; }
 
     }
 }
