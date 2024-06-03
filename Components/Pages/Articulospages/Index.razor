@@ -30,12 +30,18 @@
                     <label class="fw-bold">B&uacute;squeda:</label>
                     <div class="input-group">
                         <InputText class="form-control" @bind-Value="busqueda"></InputText>
-                        <button class="btn btn-outline-primary"><i class="fas fa-search" @onclick="Buscar"></i> Buscar</button>
+                        <button class="btn btn-outline-primary" @onclick="Buscar">
+                            <i class="fas fa-search"></i> Buscar
+                        </button>
                     </div>
+
                 </div>
 
                 <div class="col d-flex justify-content-end align-items-end">
-                    <a href="create" class="btn btn-success"><i class="fas fa-plus"></i> Crear</a>
+                    <a href="/Create" class="btn btn-success">
+                        <Icon Name="IconName.Search"></Icon>
+                        Nuevo
+                    </a>
                 </div>
 
             </div>
@@ -63,18 +69,20 @@
                             <td>@item.ganacia</td>
                             <td>@item.precio</td>
                             <td>
-                                <a href="edit/@item.ArticulosId">
-                                    <img style="width: 28px; height: 28px;" src="/recursos/editar.png" />
+                                <a href="/Create" class="btn btn-success">
+                                    <Icon Name="IconName.Pencil"></Icon>Editar
+
                                 </a>
                             </td>
+                            <a href="/Create" class="btn btn-success">
+                                <Icon Name="IconName.Eye"></Icon>
+                               
+                            </a>
+                            
                             <td>
-                                <a href="details/@item.ArticulosId">
-                                    <img style="width: 28px; height: 28px;" src="/recursos/detalle.png" />
-                                </a>
-                            </td>
-                            <td>
-                                <a href="delete/@item.ArticulosId">
-                                    <img style="width: 28px; height: 28px;" src="/recursos/eliminar.png" />
+                                <a href="/Delete" class="btn btn-success">
+                                    <Icon Name="IconName.Trash"></Icon> Eliminar
+
                                 </a>
                             </td>
                         </tr>
