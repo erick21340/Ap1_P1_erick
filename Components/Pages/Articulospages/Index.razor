@@ -1,1 +1,115 @@
-﻿
+﻿@page "/index"
+
+@inject NavigationManager NavigationManager
+@inject ArticuloService ArticuloService
+@rendermode InteractiveServer
+
+<PageTitle>Centro de Artículos</PageTitle>
+<EditForm Model="ListarArticulos">
+    <DataAnnotationsValidator />
+    <div class="card">
+
+        <div class="card-header bg-primary">
+            <div class="row text-white text-center">
+                <h3>Centro de Artículos</h3>
+            </div>
+        </div>
+
+        <div class="card-body">
+
+            <div class="row mb-4">
+                <div class="col-3">
+                    <label class="fw-bold">Filtrar por:</label>
+                    <select class="form-select" @bind="filtrar">
+                        <option value="articulosid">ArticuloId</option>
+                        <option value="descripcion">Descripci&oacute;n</option>
+                    </select>
+                </div>
+
+                <div class="col-6">
+                    <label class="fw-bold">B&uacute;squeda:</label>
+                    <div class="input-group">
+                        <InputText class="form-control" @bind-Value="busqueda"></InputText>
+                        <button class="btn btn-outline-primary"><i class="fas fa-search" @onclick="Buscar"></i> Buscar</button>
+                    </div>
+                </div>
+
+                <div class="col d-flex justify-content-end align-items-end">
+                    <a href="create" class="btn btn-success"><i class="fas fa-plus"></i> Crear</a>
+                </div>
+
+            </div>
+
+            <table class="table table-bordered text-center">
+                <thead class="bg-primary text-white">
+                    <tr>
+                        <th>ArticuloId</th>
+                        <th>Descripci&oacute;n</th>
+                        <th>Costo</th>
+                        <th>Ganancia</th>
+                        <th>Precio</th>
+                        <th>Editar</th>
+                        <th>Detalle</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ListarArticulos)
+                    {
+                        <tr>
+                            <td>@item.ArticulosId</td>
+                            <td>@item.Descripcion</td>
+                            <td>@item.Costo</td>
+                            <td>@item.ganacia</td>
+                            <td>@item.precio</td>
+                            <td>
+                                <a href="edit/@item.ArticulosId">
+                                    <img style="width: 28px; height: 28px;" src="/recursos/editar.png" />
+                                </a>
+                            </td>
+                            <td>
+                                <a href="details/@item.ArticulosId">
+                                    <img style="width: 28px; height: 28px;" src="/recursos/detalle.png" />
+                                </a>
+                            </td>
+                            <td>
+                                <a href="delete/@item.ArticulosId">
+                                    <img style="width: 28px; height: 28px;" src="/recursos/eliminar.png" />
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</EditForm>
+
+@code {
+    private string filtrar = "articulosid", busqueda = "";
+
+    public Articulos articulo = new Articulos();
+    public List<Articulos> ListarArticulos = new List<Articulos>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        ListarArticulos = await ArticuloService.Listar(a => true);
+    }
+
+    public async Task Buscar()
+    {
+        if (filtrar == "articulosid" && int.TryParse(busqueda, out int aux))
+        {
+            ListarArticulos = await ArticuloService.Listar(a => a.ArticulosId == aux);
+        }
+        else if (filtrar == "descripcion")
+        {
+            ListarArticulos = await ArticuloService.Listar(a => a.Descripcion.Contains(busqueda));
+        }
+        if (busqueda.Trim() == "")
+        {
+            ListarArticulos = await ArticuloService.Listar(a => true);
+        }
+    }
+}
