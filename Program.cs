@@ -1,5 +1,6 @@
 using Ap1_P1_erick.Components;
 using Ap1_P1_erick.DAL;
+using Ap1_P1_erick.Service;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,7 +12,7 @@ var ConStr = builder.Configuration.GetConnectionString("ConStr");
 
 
 builder.Services.AddDbContext<Contexto>(options => options.UseSqlite(ConStr));
-
+builder.Services.AddScoped<ArticuloService>();
 
 
 

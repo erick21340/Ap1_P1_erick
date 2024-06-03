@@ -3,7 +3,7 @@ using Ap1_P1_erick.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace BlazorApp1.Service
+namespace Ap1_P1_erick.Service
 {
     public class ArticuloService
     {
