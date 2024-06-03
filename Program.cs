@@ -1,12 +1,17 @@
 using Ap1_P1_erick.Components;
+using Ap1_P1_erick.DAL;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
-    
 var ConStr = builder.Configuration.GetConnectionString("ConStr");
+
+
+
+
 builder.Services.AddBlazorBootstrap();
 
 var app = builder.Build();
