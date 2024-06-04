@@ -6,7 +6,7 @@ namespace Ap1_P1_erick.Models
     {
         [Key]
 
-
+        [Required(ErrorMessage = "este campo es obligatorio")]
 
         public  int ArticulosId { get; set; }
         [Required(ErrorMessage = "este campo es obligatorio")]
