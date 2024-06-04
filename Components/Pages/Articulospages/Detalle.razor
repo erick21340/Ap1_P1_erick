@@ -1,1 +1,111 @@
-﻿
+﻿@page "/Detalle"
+@page "/Detalle/{ArticuloID:int}"
+
+@inject NavigationManager NavigationManager
+@inject ArticuloService ArticuloService
+@rendermode InteractiveServer
+
+<PageTitle> ver Detalles del Artículo</PageTitle>
+<EditForm Model="articulo">
+	<div class="card">
+
+		<div class="card-header bg-primary text-white">
+			<div class="row text-center">
+				<h3>Detalles del Artículo</h3>
+			</div>
+		</div>
+
+		<div class="card-body">
+			<div class="row text-center">
+				<label class="fw-bold">ArtículoId:</label>
+				<span>@articulo.ArticulosId</span>
+
+				<label class="fw-bold">Descripción:</label>
+				<span>@articulo.Descripcion</span>
+
+				<label class="fw-bold">Costo:</label>
+				<span>@articulo.Costo</span>
+
+				<label class="fw-bold">Ganancia:</label>
+				<span>@articulo.ganacia</span>
+
+				<label class="fw-bold">Precio:</label>
+				<span>@articulo.precio</span>
+
+				<label class="fw-bold">Detalle </label>
+			</div>
+		</div>
+
+		<div class="card-footer text-center">
+		
+			<a href="index" class="btn btn-danger "> Volver</a>
+		</div>
+	</div>
+</EditForm>
+
+<div class="exito-contenedor-invalido" style="@fracasoContenedorEstilo">
+	<div id="fracaso-mensaje" class="mensaje-contenedor">@mensajeFracaso</div>
+</div>
+<div class="exito-contenedor-valido" style="@exitoContenedorEstilo">
+	<div id="exito-mensaje" class="mensaje-contenedor">@mensajeExito</div>
+</div>
+
+
+@code {
+
+	public Articulos articulo = new Articulos();
+
+	private string mensajeExito = "";
+	private string mensajeFracaso = "";
+	private string exitoContenedorEstilo = "display: none;";
+	private string fracasoContenedorEstilo = "display: none;";
+
+	[Parameter]
+	public int ArticuloID { get; set; }
+
+	protected override async Task OnInitializedAsync()
+	{
+		if (ArticuloID > 0)
+		{
+			articulo = await ArticuloService.Buscar(ArticuloID);
+		}
+	}
+
+	public async Task Eliminar()
+	{
+		var eliminar = await ArticuloService.Eliminar(ArticuloID);
+		if (eliminar)
+		{
+			await MostrarMensaje("Eliminación exitosa.", "Valido");
+			NavigationManager.NavigateTo("index");
+		}
+		else
+		{
+			await MostrarMensaje("Eliminación incorrecta.", "Invalido");
+		}
+	}
+
+	public async Task MostrarMensaje(string mensaje, string tipoMensaje)
+	{
+		if (tipoMensaje == "Valido")
+		{
+			mensajeExito = mensaje;
+			exitoContenedorEstilo = "display: block;";
+			fracasoContenedorEstilo = "display: none;";
+
+			await Task.Delay(4500);
+			exitoContenedorEstilo = "display: none;";
+			StateHasChanged();
+		}
+		else if (tipoMensaje == "Invalido")
+		{
+			mensajeFracaso = mensaje;
+			fracasoContenedorEstilo = "display: block;";
+			exitoContenedorEstilo = "display: none;";
+
+			await Task.Delay(4500);
+			fracasoContenedorEstilo = "display: none;";
+			StateHasChanged();
+		}
+	}
+}
