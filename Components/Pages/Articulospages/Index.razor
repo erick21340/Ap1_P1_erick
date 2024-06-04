@@ -31,7 +31,7 @@
                     <div class="input-group">
                         <InputText class="form-control" @bind-Value="busqueda"></InputText>
                         <button class="btn btn-outline-primary" @onclick="Buscar">
-                            <i class="fas fa-search"></i> Buscar
+                            <Icon Name="IconName.Search"></Icon>
                         </button>
                     </div>
 
@@ -39,8 +39,8 @@
 
                 <div class="col d-flex justify-content-end align-items-end">
                     <a href="/create" class="btn btn-success">
-                        <Icon Name="IconName.Search"></Icon>
-                        Nuevo
+                        <Icon Name="IconName.Plus"></Icon>
+                        
                     </a>
                 </div>
 
@@ -70,17 +70,17 @@
                             <td>@item.precio</td>
                             <td>
                                 <a href="/edit/@item.ArticulosId" class="btn btn-success">
-                                    <Icon Name="IconName.Pencil"></Icon>Editar
+                                    <Icon Name="IconName.Pencil"></Icon>
                                 </a>
                             </td>
                             <td>
-                                <a href="/details/@item.ArticulosId" class="btn btn-info">
-                                    <Icon Name="IconName.Eye"></Icon>Detalle
+                                <a href="/Detalle/@item.ArticulosId" class="btn btn-info">
+                                    <Icon Name="IconName.Eye"></Icon>
                                 </a>
                             </td>
                             <td>
                                 <a href="/delete/@item.ArticulosId" class="btn btn-danger">
-                                    <Icon Name="IconName.Trash"></Icon> Eliminar
+                                    <Icon Name="IconName.Trash"></Icon> 
                                 </a>
                             </td>
                         </tr>
