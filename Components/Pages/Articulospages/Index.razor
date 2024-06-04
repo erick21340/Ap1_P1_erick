@@ -38,7 +38,7 @@
                 </div>
 
                 <div class="col d-flex justify-content-end align-items-end">
-                    <a href="/Create" class="btn btn-success">
+                    <a href="/create" class="btn btn-success">
                         <Icon Name="IconName.Search"></Icon>
                         Nuevo
                     </a>
@@ -69,20 +69,18 @@
                             <td>@item.ganacia</td>
                             <td>@item.precio</td>
                             <td>
-                                <a href="/Create" class="btn btn-success">
+                                <a href="/edit/@item.ArticulosId" class="btn btn-success">
                                     <Icon Name="IconName.Pencil"></Icon>Editar
-
                                 </a>
                             </td>
-                            <a href="/Create" class="btn btn-success">
-                                <Icon Name="IconName.Eye"></Icon>
-                               
-                            </a>
-                            
                             <td>
-                                <a href="/Delete" class="btn btn-success">
+                                <a href="/details/@item.ArticulosId" class="btn btn-info">
+                                    <Icon Name="IconName.Eye"></Icon>Detalle
+                                </a>
+                            </td>
+                            <td>
+                                <a href="/delete/@item.ArticulosId" class="btn btn-danger">
                                     <Icon Name="IconName.Trash"></Icon> Eliminar
-
                                 </a>
                             </td>
                         </tr>
@@ -97,7 +95,6 @@
 @code {
     private string filtrar = "articulosid", busqueda = "";
 
-    public Articulos articulo = new Articulos();
     public List<Articulos> ListarArticulos = new List<Articulos>();
 
     protected override async Task OnInitializedAsync()
